@@ -7,7 +7,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -67,9 +66,10 @@ public class NotesListFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.add) {
-            //переход в активити
-            //ТЕСТ
-            Toast.makeText(getContext(), "working", Toast.LENGTH_LONG).show();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new NewNoteFragment())
+                    .addToBackStack(null)
+                    .commit();
             return true;
         }
         else {

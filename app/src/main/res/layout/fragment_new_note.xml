@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/new_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minLines="20"
+        android:maxLines="2000"
+        android:gravity="top"
+        android:hint="@string/hint_new_note" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <Button
+            android:id="@+id/topic_new_note_quickly"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/topic_new_note_quickly" />
+
+        <Button
+            android:id="@+id/topic_new_note_make"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/topic_new_note_make"
+            android:paddingLeft="5dp" />
+
+        <Button
+            android:id="@+id/topic_new_note_create"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/topic_new_note_create"
+            android:layout_marginLeft="5dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
