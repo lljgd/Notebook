@@ -68,5 +68,25 @@ public class NewNoteFragment extends Fragment {
                 recordSaveTemp = s.toString();
             }
         });
+
+        View.OnClickListener buttonListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.button_save) {
+                    note.setRecord(recordSaveTemp);
+
+                    getFragmentManager().popBackStack();
+                }
+                else {
+                    textButtonTopic(v);
+                }
+            }
+        };
+    }
+
+    private void textButtonTopic(View v) {
+        Button button = (Button) v;
+        String textButton = button.getText().toString();
+        note.setTopic(textButton);
     }
 }
