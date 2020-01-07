@@ -1,4 +1,4 @@
-package com.example.notebook;
+package com.example.notebook.feature.create;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,6 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.notebook.R;
+import com.example.notebook.data.model.Note;
+import com.example.notebook.data.store.NoteStoreProvider;
+
 public class NewNoteFragment extends Fragment {
 
     private Note note;
@@ -23,7 +27,7 @@ public class NewNoteFragment extends Fragment {
     private Button topicCreate;
     private Button save;
 
-    private String recordSaveTemp;
+    //private String recordSaveTemp;
 
 
     @Override
@@ -65,7 +69,8 @@ public class NewNoteFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                recordSaveTemp = s.toString();
+                //recordSaveTemp = s.toString();
+                note.setRecord(s.toString());
             }
         });
 
@@ -73,8 +78,8 @@ public class NewNoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v.getId() == R.id.button_save) {
-                    note.setRecord(recordSaveTemp);
-
+                    //note.setRecord(recordSaveTemp);
+                    saveNoteObject();
                     getFragmentManager().popBackStack();
                 }
                 else {
@@ -82,11 +87,20 @@ public class NewNoteFragment extends Fragment {
                 }
             }
         };
+
+        topicQuickly.setOnClickListener(buttonListener);
+        topicMake.setOnClickListener(buttonListener);
+        topicCreate.setOnClickListener(buttonListener);
+        save.setOnClickListener(buttonListener);
     }
 
     private void textButtonTopic(View v) {
         Button button = (Button) v;
         String textButton = button.getText().toString();
         note.setTopic(textButton);
+    }
+
+    private void saveNoteObject() {
+        NoteStoreProvider.getInstance(getContext()).insert(note);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.notebook;
+package com.example.notebook.data.model;
 
 import java.util.Date;
 import java.util.UUID;
@@ -21,6 +21,10 @@ public class Note {
         return id;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public String getRecord() {
         return record;
     }
@@ -31,6 +35,10 @@ public class Note {
 
     public Date getData() {
         return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
 
     public boolean isDone() {
@@ -53,7 +61,7 @@ public class Note {
         return number;
     }
 
-    private int setNumber(int number) {
+    public int setNumber(int number) {
         return number;
     }
 }

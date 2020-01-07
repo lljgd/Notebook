@@ -1,9 +1,11 @@
-package com.example.notebook;
+package com.example.notebook.feature.list;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+
+import com.example.notebook.R;
 
 public class NotesListActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.notebook;
+package com.example.notebook.feature.list.adapter;
 
 import android.view.View;
 import android.widget.CheckBox;
@@ -6,6 +6,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.notebook.R;
+import com.example.notebook.data.model.Note;
 
 public class NoteViewHolder extends RecyclerView.ViewHolder {
 

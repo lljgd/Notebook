@@ -1,4 +1,4 @@
-package com.example.notebook;
+package com.example.notebook.feature.list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.example.notebook.R;
+import com.example.notebook.data.model.Note;
+import com.example.notebook.data.store.NoteStoreProvider;
+import com.example.notebook.feature.create.NewNoteFragment;
+import com.example.notebook.feature.list.adapter.NoteListAdapter;
+
 import java.util.List;
 
 public class NotesListFragment extends Fragment {
@@ -45,16 +50,8 @@ public class NotesListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //TEST
-        List<Note> notes = new ArrayList<>();
-        Note note = new Note();
-        note.setRecord("Record");
-        note.setTopic("quickly");
-        note.setDone(true);
-        notes.add(note);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new NoteListAdapter(notes);
+        adapter = new NoteListAdapter(NoteStoreProvider.getInstance(getContext()).getAllNotes());
         recyclerView.setAdapter(adapter);
     }
 
@@ -75,5 +72,16 @@ public class NotesListFragment extends Fragment {
         else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateList();
+    }
+
+    private void updateList() {
+        List<Note> notes = NoteStoreProvider.getInstance(getContext()).getAllNotes();
+        adapter.submitList(notes);
     }
 }
