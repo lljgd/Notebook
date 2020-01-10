@@ -36,4 +36,8 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         dataView.setText(note.getData().toString());
         topicView.setText(note.getTopic());
     }
+
+    public Note getNote() {
+        return note;
+    }
 }

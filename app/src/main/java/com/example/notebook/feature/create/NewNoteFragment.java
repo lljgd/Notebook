@@ -27,9 +27,6 @@ public class NewNoteFragment extends Fragment {
     private Button topicCreate;
     private Button save;
 
-    //private String recordSaveTemp;
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +66,6 @@ public class NewNoteFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                //recordSaveTemp = s.toString();
                 note.setRecord(s.toString());
             }
         });
@@ -78,8 +74,7 @@ public class NewNoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v.getId() == R.id.button_save) {
-                    //note.setRecord(recordSaveTemp);
-                    saveNoteObject();
+                    saveNoteObject(note);
                     getFragmentManager().popBackStack();
                 }
                 else {
@@ -100,7 +95,7 @@ public class NewNoteFragment extends Fragment {
         note.setTopic(textButton);
     }
 
-    private void saveNoteObject() {
+    private void saveNoteObject(Note note) {
         NoteStoreProvider.getInstance(getContext()).insert(note);
     }
 }

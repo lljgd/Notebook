@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import com.example.notebook.data.model.Note;
 import com.example.notebook.data.store.NoteStoreProvider;
 import com.example.notebook.feature.create.NewNoteFragment;
 import com.example.notebook.feature.list.adapter.NoteListAdapter;
+import com.example.notebook.feature.list.adapter.NoteViewHolder;
 
 import java.util.List;
 
@@ -53,6 +55,28 @@ public class NotesListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new NoteListAdapter(NoteStoreProvider.getInstance(getContext()).getAllNotes());
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper touchHelper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        NoteViewHolder noteViewHolder = (NoteViewHolder) viewHolder;
+                        Note note = noteViewHolder.getNote();
+                        deleteItem(note, viewHolder.getAdapterPosition());
+                    }
+                }
+        );
+        touchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    private void deleteItem(final Note note, final int position) {
+        NoteStoreProvider.getInstance(getContext()).deleteNote(note);
+        updateList();
     }
 
     @Override

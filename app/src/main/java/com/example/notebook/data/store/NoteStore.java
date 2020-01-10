@@ -8,5 +8,7 @@ public interface NoteStore {
 
     List<Note> getAllNotes();
 
+    void deleteNote(Note note);
+
     void insert(Note note);
 }

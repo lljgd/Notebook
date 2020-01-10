@@ -34,6 +34,11 @@ public class RoomNoteStore implements NoteStore {
         return notesResult;
     }
 
+    @Override
+    public void deleteNote(Note note) {
+        noteDao.delete(Converter.convert(note));
+    }
+
     /*@Override
     public Note getById(UUID id) {
         NoteEntity noteEntity = noteDao.getNoteById(id.toString());
