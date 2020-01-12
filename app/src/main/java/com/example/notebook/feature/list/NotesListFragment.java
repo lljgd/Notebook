@@ -21,6 +21,7 @@ import com.example.notebook.data.store.NoteStoreProvider;
 import com.example.notebook.feature.create.NewNoteFragment;
 import com.example.notebook.feature.list.adapter.NoteListAdapter;
 import com.example.notebook.feature.list.adapter.NoteViewHolder;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -67,16 +68,25 @@ public class NotesListFragment extends Fragment {
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         NoteViewHolder noteViewHolder = (NoteViewHolder) viewHolder;
                         Note note = noteViewHolder.getNote();
-                        deleteItem(note, viewHolder.getAdapterPosition());
+                        deleteItem(note);
                     }
                 }
         );
         touchHelper.attachToRecyclerView(recyclerView);
     }
 
-    private void deleteItem(final Note note, final int position) {
+    private void deleteItem(final Note note) {
         NoteStoreProvider.getInstance(getContext()).deleteNote(note);
         updateList();
+        Snackbar.make(recyclerView, R.string.snack_bar_list_message, Snackbar.LENGTH_LONG)
+                .setAction(R.string.snack_bar_list_undo, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        NoteStoreProvider.getInstance(getContext()).insert(note);
+                        updateList();
+                    }
+                })
+                .show();
     }
 
     @Override

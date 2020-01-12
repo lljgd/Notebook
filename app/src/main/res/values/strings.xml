@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Notebook</string>
-    <string name="add_title">Add</string>
-    <string name="hint_new_note">Enter text, select category and click save</string>
 
+    <string name="add_title">Add</string>
+    <string name="snack_bar_list_message">Item was deleted</string>
+    <string name="snack_bar_list_undo">UNDO</string>
+
+    <string name="hint_new_note">Enter text, select category and click save</string>
     <string name="topic_new_note_quickly">quickly</string>
     <string name="topic_new_note_make">make</string>
     <string name="topic_new_note_create">create</string>
