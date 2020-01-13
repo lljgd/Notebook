@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notebook.R;
 import com.example.notebook.data.model.Note;
+import com.example.notebook.data.store.NoteStore;
 import com.example.notebook.data.store.NoteStoreProvider;
 import com.example.notebook.feature.create.NewNoteFragment;
 import com.example.notebook.feature.list.adapter.NoteListAdapter;
@@ -77,13 +78,11 @@ public class NotesListFragment extends Fragment {
 
     private void deleteItem(final Note note) {
         NoteStoreProvider.getInstance(getContext()).deleteNote(note);
-        updateList();
         Snackbar.make(recyclerView, R.string.snack_bar_list_message, Snackbar.LENGTH_LONG)
                 .setAction(R.string.snack_bar_list_undo, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         NoteStoreProvider.getInstance(getContext()).insert(note);
-                        updateList();
                     }
                 })
                 .show();
@@ -111,8 +110,22 @@ public class NotesListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        NoteStoreProvider.getInstance(getContext()).addListener(notesListChangedListener);
         updateList();
     }
+
+    @Override
+    public void onPause() {
+        NoteStoreProvider.getInstance(getContext()).removeListener(notesListChangedListener);
+        super.onPause();
+    }
+
+    private final NoteStore.Listener notesListChangedListener = new NoteStore.Listener() {
+        @Override
+        public void onNotesListChanged() {
+            updateList();
+        }
+    };
 
     private void updateList() {
         List<Note> notes = NoteStoreProvider.getInstance(getContext()).getAllNotes();

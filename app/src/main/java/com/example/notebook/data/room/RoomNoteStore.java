@@ -5,12 +5,12 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.example.notebook.data.model.Note;
-import com.example.notebook.data.store.NoteStore;
+import com.example.notebook.data.store.BaseNoteStore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomNoteStore implements NoteStore {
+public class RoomNoteStore extends BaseNoteStore {
 
     private NoteDao noteDao;
 
@@ -37,6 +37,7 @@ public class RoomNoteStore implements NoteStore {
     @Override
     public void deleteNote(Note note) {
         noteDao.delete(Converter.convert(note));
+        notifyListeners();
     }
 
     /*@Override
@@ -54,5 +55,6 @@ public class RoomNoteStore implements NoteStore {
     @Override
     public void insert(Note note) {
         noteDao.insert(Converter.convert(note));
+        notifyListeners();
     }
 }
