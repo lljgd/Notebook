@@ -1,4 +1,4 @@
-package com.example.notebook.feature.create;
+package com.example.notebook.feature.details;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.notebook.R;
 import com.example.notebook.data.model.Note;
+import com.example.notebook.data.store.NoteStore;
 import com.example.notebook.data.store.NoteStoreProvider;
 
 public class NewNoteFragment extends Fragment {
@@ -74,7 +75,7 @@ public class NewNoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v.getId() == R.id.button_save) {
-                    saveNoteObject(note);
+                    saveNoteObject();
                     getFragmentManager().popBackStack();
                 }
                 else {
@@ -95,7 +96,9 @@ public class NewNoteFragment extends Fragment {
         note.setTopic(textButton);
     }
 
-    private void saveNoteObject(Note note) {
-        NoteStoreProvider.getInstance(getContext()).insert(note);
+    private void saveNoteObject() {
+        NoteStore instance = NoteStoreProvider.getInstance(getContext());
+        note.setNumber(instance.getNumber());
+        instance.insert(note);
     }
 }

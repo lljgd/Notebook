@@ -15,9 +15,11 @@ import java.util.List;
 public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     private List<Note> notes;
+    private ItemListener itemListener;
 
-    public NoteListAdapter(List<Note> notes) {
+    public NoteListAdapter(List<Note> notes, ItemListener itemListener) {
         this.notes = notes;
+        this.itemListener = itemListener;
 
         setHasStableIds(true);
     }
@@ -37,7 +39,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.item_note_list, parent, false);
 
-        return new NoteViewHolder(itemView);
+        return new NoteViewHolder(itemView, itemListener);
     }
 
     @Override
@@ -49,5 +51,9 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     @Override
     public int getItemCount() {
         return notes.size();
+    }
+
+    public interface ItemListener {
+        void onNoteClicked(Note note);
     }
 }

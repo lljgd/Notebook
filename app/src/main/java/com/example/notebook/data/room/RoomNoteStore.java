@@ -9,6 +9,7 @@ import com.example.notebook.data.store.BaseNoteStore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class RoomNoteStore extends BaseNoteStore {
 
@@ -40,7 +41,7 @@ public class RoomNoteStore extends BaseNoteStore {
         notifyListeners();
     }
 
-    /*@Override
+    @Override
     public Note getById(UUID id) {
         NoteEntity noteEntity = noteDao.getNoteById(id.toString());
 
@@ -48,6 +49,11 @@ public class RoomNoteStore extends BaseNoteStore {
     }
 
     @Override
+    public int getNumber() {
+        return Integer.parseInt(noteDao.getNumber()) + 1;
+    }
+
+    /*@Override
     public void update(Note note) {
         noteDao.update(Converter.convert(note));
     }*/

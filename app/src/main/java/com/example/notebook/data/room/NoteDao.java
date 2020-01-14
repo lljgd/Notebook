@@ -17,6 +17,9 @@ public interface NoteDao {
     @Query("SELECT * FROM NoteEntity WHERE id == :id")
     NoteEntity getNoteById(String id);
 
+    @Query("SELECT MAX(number) FROM NoteEntity")
+    String getNumber();
+
     @Insert
     void insert(NoteEntity noteEntity);
 

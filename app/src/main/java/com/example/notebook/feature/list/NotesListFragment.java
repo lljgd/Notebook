@@ -1,5 +1,6 @@
 package com.example.notebook.feature.list;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,7 +20,8 @@ import com.example.notebook.R;
 import com.example.notebook.data.model.Note;
 import com.example.notebook.data.store.NoteStore;
 import com.example.notebook.data.store.NoteStoreProvider;
-import com.example.notebook.feature.create.NewNoteFragment;
+import com.example.notebook.feature.details.NewNoteFragment;
+import com.example.notebook.feature.details.NoteActivity;
 import com.example.notebook.feature.list.adapter.NoteListAdapter;
 import com.example.notebook.feature.list.adapter.NoteViewHolder;
 import com.google.android.material.snackbar.Snackbar;
@@ -55,7 +57,7 @@ public class NotesListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new NoteListAdapter(NoteStoreProvider.getInstance(getContext()).getAllNotes());
+        adapter = new NoteListAdapter(NoteStoreProvider.getInstance(getContext()).getAllNotes(), itemListener);
         recyclerView.setAdapter(adapter);
 
         ItemTouchHelper touchHelper = new ItemTouchHelper(
@@ -131,4 +133,12 @@ public class NotesListFragment extends Fragment {
         List<Note> notes = NoteStoreProvider.getInstance(getContext()).getAllNotes();
         adapter.submitList(notes);
     }
+
+    private final NoteListAdapter.ItemListener itemListener = new NoteListAdapter.ItemListener() {
+        @Override
+        public void onNoteClicked(Note note) {
+            Intent intent = NoteActivity.makeIntent(getContext(), note.getId());
+            startActivity(intent);
+        }
+    };
 }
